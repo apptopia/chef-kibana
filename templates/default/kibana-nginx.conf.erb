@@ -6,7 +6,7 @@ server {
   ssl_certificate /etc/nginx/certs/server.crt;
   ssl_certificate_key  /etc/nginx/certs/server.key;
   ssl_client_certificate /etc/nginx/certs/ca.crt;
-  ssl_verify_client optional;
+  ssl_verify_client on;
 
   server_name           <%= @server_name %> <%= @server_aliases.join(" ") %>;
   access_log            /var/log/nginx/<%= @server_name %>.access.log;
