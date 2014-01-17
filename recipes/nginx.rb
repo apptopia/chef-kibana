@@ -17,10 +17,30 @@
 # limitations under the License.
 #
 
-
 node.set['nginx']['default_site_enabled'] = node['kibana']['nginx']['enable_default_site']
 
 include_recipe "nginx"
+
+file "/etc/nginx/certs/server.crt" do
+  owner "root"
+  group "root"
+  mode "0640"
+  content node['kibana']['ssl_certificate']
+end
+
+file "/etc/nginx/certs/server.key" do
+  owner "root"
+  group "root"
+  mode "0640"
+  content node['kibana']['ssl_certificate_key']
+end
+
+file "/etc/nginx/certs/ca.crt" do
+  owner "root"
+  group "root"
+  mode "0640"
+  content node['kibana']['ssl_client_certificate']
+end
 
 template "/etc/nginx/sites-available/kibana" do
   source node['kibana']['nginx']['template']
